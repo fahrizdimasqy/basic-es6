@@ -293,3 +293,67 @@ Sama seperti kita menuliskan kode seperti ini:
 ```javascript
 console.log(favorites[0], favorites[1], favorites[2], favorites[3]);
 ```
+
+### Spreading Operator
+Spreading operator dituliskan dengan three consecutive dots (....). Sesuai namanya “Spread”,
+fitur baru ES6 ini digunakan untuk membentangkan nilai array atau lebih tepatnya iterable
+object menjadi beberapa elements.
+
+Mari kita lihat contoh kode berikut:
+```javascript
+const favorites = ["Seafood", "Salad", "Nugget", "Soup"];
+console.log(favorites);
+/* output:
+[ 'Seafood', 'Salad', 'Nugget', 'Soup' ]
+*/
+```
+
+Nah, dengan menggunakan spread
+operator kita dapat membentangkan nilai – nilai dalam array tersebut.
+
+```javascript
+onst favorites = ["Seafood", "Salad", "Nugget", "Soup"];
+console.log(...favorites);
+/* output:
+Seafood Salad Nugget Soup
+*/
+```
+
+Spread operator bekerja seperti
+meleburkan nilai array menjadi beberapa elemen sesuai dengan panjang nilai array-nya,
+sehingga jika kita menuliskan kode seperti ini:
+
+```javascript
+console.log(...favorites);
+```
+
+Sama seperti kita menuliskan kode seperti ini:
+
+```
+console.log(favorites[0], favorites[1], favorites[2], favorites[3]);
+```
+Spread operator ini cocok sekali digunakan sebagai nilai parameter pada variadic functions,
+seperti console.log() atau Math.max().
+
+```javascript
+/* Math.max() -> Mencari nilai terbesar */
+const numbers = [12, 32, 90, 12, 32];
+// Sama seperti kita menuliskan
+// console.log(Math.max(numbers[0], numbers[1], numbers[2], numbers[3])
+console.log(Math.max(...numbers));
+/* output
+90
+*/
+```
+
+Alih-alih menggabungkan nilainya,
+variabel allFavorite menjadi objek array baru yang menampung dua array di dalamnya.
+
+```javascript
+const favorites = ["Seafood", "Salad", "Nugget", "Soup"];
+const others = ["Cake", "Pie", "Donut"];
+const allFavorites = [...favorites, ...others]
+console.log(allFavorites);
+```
+
+### Rest parameter
