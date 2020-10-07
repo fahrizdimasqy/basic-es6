@@ -403,3 +403,39 @@ menggunakan array destructuring. Variabel manufacture, weight, door diberikan ni
 tiga pertama dari array refrigerator, namun variabel items di mana kita menggunakan rest
 parameter, akan diberikan sisa nilai yang ada sebagai array.
 
+### Arrow Function Expression
+Arrow function mirip seperti regular function secara perilaku,
+namun penulisannya jauh berbeda. Sama seperti namanya, fungsi didefinisikan dengan
+menggunakan tanda panah (=>) dan tentu penulisan fungsi dengan arrow ini akan lebih
+singkat.
+
+Untuk gambaran awal, perhatikan penulisan regular fungsi sebagai callback berikut:
+```javascript
+const upperizedNames = ["Dimas", "Widy", "Buchori"]
+.map(function(name) {
+return name.toUpperCase();
+});
+console.log(...upperizedNames);
+/* output:
+DIMAS WIDY BUCHORI
+*/
+```
+
+Sedangkan menggunakan arrow function akan tampak seperti ini:
+```javascript
+const upperizedNames = ["Dimas", "Widy", "Buchori"]
+.map(name => name.toUpperCase());
+console.log(...upperizedNames);
+/* output:
+DIMAS WIDY BUCHORI
+*/
+```
+Pada kasus fungsi yang dituliskan dalam satu baris dengan arrow function kita dapat
+menghapus kata function, tanda kurung, tanda kurawal, kata return, dan semicolon (;). Kita
+hanya perlu menambahkan tanda panah (=>) di antara parameter dan kode fungsinya.
+
+### Regular function vs Arrow Function
+Sekilas kita sudah tahu seperti apa arrow function, namun mungkin bila kita sama sekali
+belum pernah mencobanya kita akan dibuat bingung. Pasalnya, penulisannya dibandingkan
+reguler function jauh berbeda.
+
