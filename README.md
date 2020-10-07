@@ -357,3 +357,49 @@ console.log(allFavorites);
 ```
 
 ### Rest parameter
+Sebelumnya kita sudah tahu bahwa variadic function dapat menerima banyak parameter,
+namun apakah kita tahu bagaimana caranya agar function dapat menerima parameter?
+Jika spread operator adalah pelebur array menjadi beberapa elemen yang berbeda, rest
+parameter ini adalah kebalikan dari operator tersebut.
+
+Sebagai contoh penggunaanya, mari kita buat sebuah variadic function yang berfungsi untuk
+menjumlahkan seluruh nilai argument fungsi yang diberikan.
+
+```javascript
+function sum(...numbers) {
+var result = 0;
+for(let number of numbers) {
+result += number
+}
+return result;
+}
+console.log(sum(1,2,3,4,5));
+/* output
+15
+*/
+```
+
+Rest parameter juga dapat digunakan pada array destructuring, di mana kita dapat
+mengelompokkan nilai-nilai array yang terdestruksi pada variabel dalam bentuk array yang
+lain.
+
+```javascript
+const refrigerator = ["Samsung", 50, 2, "milk", "cheese", "egg", "butter"];
+const [manufacture, weight, door, ...items] = refrigerator;
+console.log(manufacture);
+console.log(weight);
+console.log(door);
+console.log(items);
+/* output:
+Samsung
+50
+2
+[ 'milk', 'cheese', 'egg', 'butter' ]
+*/
+```
+
+Pada kode di atas nilai dari array refrigerator dimasukkan ke individual lokal variabel
+menggunakan array destructuring. Variabel manufacture, weight, door diberikan nilai index
+tiga pertama dari array refrigerator, namun variabel items di mana kita menggunakan rest
+parameter, akan diberikan sisa nilai yang ada sebagai array.
+
