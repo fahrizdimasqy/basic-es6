@@ -519,6 +519,16 @@ sayHello("Dimas", "Selamat Pagi")
 Selamat Pagi, Dimas!
 */
 ```
+Namun jika kita sama sekali tidak membutuhkan parameter, biarkan saja tanda kurung
+tersebut kosong.
+
+```javascript
+const sayHello = () => console.log("Selamat pagi semuanya!");
+sayHello()
+/* output:
+Selamat pagi semuanya!
+*/
+```
 
 ### Block Body Function
 Fungsi merupakan mini program sehingga sangat mungkin terdapat lebih dari satu logika di
@@ -551,4 +561,53 @@ Selamat Pagi!
 ```
 Selain itu juga, kita perlu menuliskan kembali keyword return agar fungsi tersebut dapat
 mengembalikan nilai.
+
+### This Keyword
+Perbedaan karakteristik dari arrow function dan regular function selanjutnya ada pada
+penggunaan keyword this. Penjelasan dari this sendiri menyusul di materi class. Namun kita
+akan bahas sedikit mengenai ini untuk menggambarkan perbedaan ketika this digunakan oleh
+arrow function dan regular function.
+
+Jika sebuah regular function dipanggil dengan menggunakan keyword new. Maka nilainya
+akan menjadi objek, contohnya:
+
+```javascript
+function People(name, age, hobby) {
+this.name = name;
+this.age = age;
+this.hobby = hobby;
+}
+const programmer = new People("John", 18, ["Coding", "Read book", "Ping-pong"]);
+console.log(programmer.name);
+console.log(programmer.age);
+console.log(programmer.hobby);
+/* output:
+John
+18
+[ 'Coding', 'Read book', 'Ping-pong' ]
+*/
+```
+Objek yang dibuat menggunakan function dengan keyword new, sama halnya seperti kita
+membuat objek seperti menggunakan objek literals { }.
+
+```javascript
+const programmer = {
+name: "John",
+age: 18,
+hobby: ["Coding", "Read book", "Ping-Pong"]
+}
+console.log(programmer.name);
+console.log(programmer.age);
+console.log(programmer.hobby);
+/* output:
+John
+18
+[ 'Coding', 'Read book', 'Ping-pong' ]
+*/
+```
+
+
+
+
+
 
