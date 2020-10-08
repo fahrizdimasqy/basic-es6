@@ -501,5 +501,54 @@ introduce: name => console.log(`Nama saya ${name}`)
 }
 ```
 
+Function Parameter
+Pada penggunaan arrow function kita melihat bahwa variabel yang diletakan sebelum tanda
+panah (=>) adalah merupakan parameter dari fungsi.
 
+```javascript
+// name merupakan parameter dari fungsi
+const sayName = name => console.log(`Nama saya ${name}`);
+```
+Pada arrow function jika terdapat dua atau lebih parameter fungsi kita perlu membungkusnya
+dengan tanda kurung seperti ini:
+
+```javascript
+const sayHello = (name, greet) => console.log(`${greet}, ${name}!`);
+sayHello("Dimas", "Selamat Pagi")
+/* output:
+Selamat Pagi, Dimas!
+*/
+```
+
+### Block Body Function
+Fungsi merupakan mini program sehingga sangat mungkin terdapat lebih dari satu logika di
+dalamnya. Seperti yang kita ketahui bahwa logika-logika pada pemrograman terdiri dari
+banyak expression ataupun statement.
+Pada contoh kode arrow function sebelumnya kita hanya menuliskan satu buah expression
+sehingga penulisannya bisa sangat ringkas. Namun bagaimana jika dalam sebuah fungsi
+terdapat banyak logika di dalamnya? Apakah bisa dituliskan menggunakan arrow function?
+Jawabannya tentu bisa!
+
+Sama seperti regular function, arrow function sebenarnya tidak benar-benar menghilangkan
+tanda kurung kurawal ({ }) dalam penulisannya. Tanda kurung kurawal pun berfungsi sama
+seperti regular function yakni menampung body function di mana tempat logika fungsi
+dituliskan. Penulisan tanda kurung kurawal menjadi opsional ketika body fungsi hanya terdiri
+dari satu expression atau statement saja.
+
+Jika kita butuh lebih dari satu baris dalam body function, kita bisa menuliskannya seperti ini:
+```javascript
+const sayHello = language => {
+if(language.toUpperCase() === "INDONESIA") {
+return "Selamat Pagi!";
+} else {
+return "Good Morning!";
+}
+}
+console.log(sayHello("Indonesia"));
+/* output:
+Selamat Pagi!
+*
+```
+Selain itu juga, kita perlu menuliskan kembali keyword return agar fungsi tersebut dapat
+mengembalikan nilai.
 
