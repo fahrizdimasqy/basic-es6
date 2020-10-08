@@ -439,3 +439,67 @@ Sekilas kita sudah tahu seperti apa arrow function, namun mungkin bila kita sama
 belum pernah mencobanya kita akan dibuat bingung. Pasalnya, penulisannya dibandingkan
 reguler function jauh berbeda.
 
+Untuk gambaran awal, perhatikan penulisan regular fungsi sebagai callback berikut:
+
+```javascript
+const upperizedNames = ["Dimas", "Widy", "Buchori"]
+.map(function(name) {
+return name.toUpperCase();
+});
+console.log(...upperizedNames);
+/* output:
+DIMAS WIDY BUCHORI
+*/
+```
+
+Sedangkan menggunakan arrow function akan tampak seperti ini:
+
+```javascript
+const upperizedNames = ["Dimas", "Widy", "Buchori"]
+.map(name => name.toUpperCase());
+console.log(...upperizedNames);
+/* output:
+DIMAS WIDY BUCHORI
+*/
+```
+Pada kasus fungsi yang dituliskan dalam satu baris dengan arrow function kita dapat
+menghapus kata function, tanda kurung, tanda kurawal, kata return, dan semicolon (;). Kita
+hanya perlu menambahkan tanda panah (=>) di antara parameter dan kode fungsinya.
+
+### Regular function vs Arrow Function
+Selain perbedaan dari segi sintaksis, terdapat juga perbedaan perilaku antara keduanya.
+Regular function dapat berupa function declaration atau function expression, namun arrow
+function hanya berupa function expression saja. Itu sebabnya arrow function memiliki nama
+lengkap “arrow function expressions”.
+
+```javascript
+// function expression
+const sayHello = greet => console.log(`${greet}!`);
+const sayName = name => console.log(`Nama saya ${name}`);
+```
+
+Karena arrow function merupakan sebuah expression, maka ia hanya dapat digunakan untuk
+disimpan pada variabel (seperti contoh kode di atas), sebagai argumen pada sebuah fungsi,
+dan sebagai nilai dari properti objek.
+
+```javascript
+//disimpan dalam variabel
+const sayName = name => console.log(`Nama saya ${name}`);
+```
+
+```javascript
+//passed as an argument
+dilemparkan sebagai argument
+["Dimas", "Widdy", "Buchori"].forEach(name => console.log(`Nama saya ${name}`));
+```
+
+```
+javascript
+//disimpan didalam properti objek
+const user = {
+introduce: name => console.log(`Nama saya ${name}`)
+}
+```
+
+
+
