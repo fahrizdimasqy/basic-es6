@@ -493,8 +493,7 @@ dilemparkan sebagai argument
 ["Dimas", "Widdy", "Buchori"].forEach(name => console.log(`Nama saya ${name}`));
 ```
 
-```
-javascript
+```javascript
 //disimpan didalam properti objek
 const user = {
 introduce: name => console.log(`Nama saya ${name}`)
@@ -606,8 +605,108 @@ John
 */
 ```
 
+Pada objek, this keyword mengembalikan nilai objeknya sendiri. this dapat digunakan untuk
+mengelola properti pada objeknya. Namun jika fungsi dipanggil tanpa menggunakan
+keyword new, this akan memiliki nilai global object (Window jika di browser).
+
+Sedangkan fungsi yang dibuat dengan menggunakan gaya arrow tidak akan pernah memiliki
+nilai this, yang artinya kita tidak pernah bisa membuat objek menggunakan arrow function.
+Jika kita menggunakan this pada arrow function maka nilai this itu sendiri merupakan nilai
+objek di mana arrow function itu berada.
+
+Perhatikan kedua contoh kode berikut:
+### Regular Funciton ###
+
+```javascript
+function People(name, age, hobby) {
+this.name = name;
+this.age = age;
+this.hobby = hobby;
+}
+// menambahkan introMyself ke People
+People.prototype.introMyself = function () {
+// this -> People
+setTimeout(function() {
+// this -> ??
+console.log(`Hello! Nama saya ${this.name}, umur saya ${this.age}.`)
+console.log(`Hobby saya adalah ${this.hobby}`)
+}, 300)
+}
+const programmer = new People("John", 18, ["Coding", "Read book", "Ping-pong"]);
+programmer.introMyself();
+/* output:
+Hello! Nama saya undefined, umur saya undefined.
+Hobby saya adalah undefined
+*/
+```
+
+### Arrow Function ###
+```javascript
+function People(name, age, hobby) {
+this.name = name;
+this.age = age;
+this.hobby = hobby;
+}
+// menambahkan introMyself ke People
+People.prototype.introMyself = function () {
+// this -> People
+setTimeout(() => {
+// this -> People
+console.log(`Hello! Nama saya ${this.name}, umur saya ${this.age}.`)
+console.log(`Hobby saya adalah ${this.hobby}`)
+}, 300)
+}
+
+const programmer = new People("John", 18, ["Coding", "Read book", "Ping-pong"]);
+programmer.introMyself();
 
 
+/* output:
+Hello! Nama saya John, umur saya 18.
+Hobby saya adalah Coding,Read book,Ping-pong
+*/
+```
 
+Fungsi yang dituliskan di dalam setTimeout() dipanggil tanpa new. Itu berarti nilai
+dari this jika digunakan di dalam fungsi tersebut adalah global object. Itulah mengapa output
+akan menghasilkan nilai undefined ketika properti name, age, dan hobby dipanggil.
+Berbeda ketika kita menuliskan arrow function di dalam setTimeout(), nilai this memiliki
+nilai objek sesuai dengan konteksnya (People). Arrow function akan sangat berguna untuk
+kasus seperti ini.
 
+### Default Parameters
+Fitur lainnya pada ES6 yang sangat bermanfaat adalah kita dapat menetapkan nilai default
+pada parameter fungsi. Dengan menggunakan default parameters, nilai pada parameter tidak
+akan menghasilkan undefined walaupun kita tidak memberikan nilai ketika fungsi tersebut
+dipanggil. Default parameter dapat digunakan pada regular function ataupun arrow function.
 
+### Reguler Function ###
+```javascript
+function sayHello(name = "Stranger", greet = "Hello") {
+console.log(`${greet} ${name}!`);
+}
+
+sayHello("Dimas", "Hai");
+sayHello();
+
+/* output:
+Hai Dimas!
+Hello Stranger!
+*/
+```
+
+### Arrow Function ###
+```javascript
+const sayHello = (name = "Stranger", greet = "Hello") => console.log(`${greet} ${name}!`);
+sayHello("Dimas", "Hai");
+sayHello();
+/* output:
+Hai Dimas!
+Hello Stranger!
+*/
+```
+Pada contoh di atas, kita menggunakan tanda assignment (=) untuk menetapkan
+parameter namedengan nilai default “Stranger”, dan parameter greet dengan nilai
+default “Hello”. Hal ini sangat berguna ketika kita memanggil fungsi sayHello() tanpa
+menetapkan nilai parameter di dalamnya, karena walaupun kita tidak menetapkan nilainya,
+kedua parameter tersebut tidak akan menghasilkan undefined.
