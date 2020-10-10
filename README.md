@@ -760,3 +760,89 @@ Dengan hadirnya class pada ES6, pembuatan class di JavaScript menjadi lebih muda
 juga penulisannya mirip seperti bahasa pemrograman lain berbasis class. Pembuatan class
 pada ES6 menggunakan keyword class itu sendiri kemudian diikuti dengan nama class-nya.
 
+```javascript
+class Car {
+// Sama seperti function constructor
+constructor(manufacture, color) {
+this.manufacture = manufacture;
+this.color = color;
+this.enginesActive = false;
+}
+// Sama seperti Car.prototype.startEngine
+startEngines() {
+console.log('Mobil dinyalanakan...');
+this.enginesActive = true;
+}
+// Sama seperti car.prototype.info
+info() {
+console.log(`Manufacture: ${this.manufacture}`);
+console.log(`Color: ${this.color}`);
+console.log(`Engines: ${this.manufacture ? "Active" : "Inactive"}`);
+}
+}
+const johnCar = new Car("Honda", "Red");
+johnCar.startEngines();
+johnCar.info();
+/* output:
+Mobil dinyalanakan...
+Manufacture: Honda
+Color: Red
+engines active: true
+*/Constructor
+ ```
+ 
+Jika Anda terbiasa dengan bahasa pemrograman berbasis class, pasti penulisannya sangat
+serupa bukan? Walaupun dari segi sintaksis pembuatan class antara keduanya cukup berbeda,
+namun perilaku dari objek yang dibuat dengan keduanya sama. Inilah mengapa class pada
+ES6 hanya sebuah syntactic sugar dari konsep prototype yang sudah ada.
+
+### Constructor ###
+Deklarasi class menggunakan ES6 memiliki sifat yang sama seperti pembuatan class
+menggunakan function constructor (seperti contoh sebelumnya). Namun alih-alihmenggunakan function constructordalam menginisialisasi propertinya, class ini memisahkan constructornya dan ditempatkan pada body class menggunakan method spesial yang
+dinamakan constructor.
+
+```javascript
+class Car {
+constructor(manufacture, color) {
+this.manufacture = manufacture;
+this.color = color;
+this.enginesActive = false;
+}
+}
+```
+constructor biasanya hanya digunakan untuk menetapkan nilai awal pada properti
+berdasarkan nilai yang dikirimkan pada constructor. Namun sebenarnya kita juga dapat
+menuliskan logika di dalam constructor jika memang kita memerlukan beberapa kondisi
+sebelum nilai properti diinisialisasi.constructor biasanya hanya digunakan untuk menetapkan nilai awal pada properti
+berdasarkan nilai yang dikirimkan pada constructor. Namun sebenarnya kita juga dapat
+menuliskan logika di dalam constructor jika memang kita memerlukan beberapa kondisi
+sebelum nilai properti diinisialisasi.
+Kita juga melihat penggunaan this pada constructor. Konteks dalam class,
+keyword this merujuk pada instance dari class tersebut. Sehingga this dapat digunakan untuk
+mengelola properti yang terdapat pada instance.
+
+Kita juga melihat penggunaan this pada constructor. Konteks dalam class,
+keyword this merujuk pada instance dari class tersebut. Sehingga this dapat digunakan untuk
+mengelola properti yang terdapat pada instance.
+
+### Instance
+Setelah kita membuat class pada JavaScript, lantas bagaimana cara membuat instance dari
+class tersebut? Tapi sebelumnya, apa itu instance? Instance merupakan objek yang memiliki
+properti dan method yang telah ditentukan oleh blueprint-nya (class), atau singkatnya adalah
+objek yang merupakan hasil realisasi dari sebuah blueprint.
+
+Sama seperti constructor function, untuk membuat instance dari class pada ES6 kita gunakan
+keyword new.
+
+```javascript
+class Car {
+constructor(manufacture, color) {
+this.manufacture = manufacture;
+this.color = color;
+this.enginesActive = false;
+}
+}
+const johnCar = new Car("Honda", "Red");
+```
+Pembuatan class menggunakan ES6 lebih ketat dibandingkan dengan constructor function, di
+mana dalam pembuatan instance wajib menggunakan keyword new.
