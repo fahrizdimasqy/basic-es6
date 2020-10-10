@@ -846,3 +846,113 @@ const johnCar = new Car("Honda", "Red");
 ```
 Pembuatan class menggunakan ES6 lebih ketat dibandingkan dengan constructor function, di
 mana dalam pembuatan instance wajib menggunakan keyword new.
+
+Kita juga dapat membuat banyak instance dari class yang sama, dan tentunya objek yang kita
+buat memiliki karakteristik (properti dan method) yang sama. Walaupun sama, namun nilai
+dari propertinya bersifat unik atau bisa saja berbeda.
+
+```javascript
+class Car {
+constructor(manufacture, color) {
+this.manufacture = manufacture;
+this.color = color;
+this.enginesActive = false;
+}
+}
+const johnCar = new Car("Honda", "Red");
+const adamCar = new Car("Tesla", "Black");
+console.log(johnCar.manufacture);
+console.log(adamCar.manufacture);
+/* output:
+Honda
+Tesla
+*/
+```
+
+Variabel johnCar dan adamCar merupakan sebuah objek dari Car. Tentu keduanya akan
+memiliki properti manufacture, color, dan enginesActive. Namun pada output kita melihat
+bahwa nilai dari properti kedua objek tersebut berbeda, karena kita dapat memberikan nilai
+yang berbeda pada saat objeknya dibuat.
+
+### Property Accessor ###
+Melalui objek class kita juga dapat mengubah nilai properti seperti ini:
+```javascript
+class Car {
+constructor(manufacture, color) {
+this.manufacture = manufacture;
+this.color = color;
+this.enginesActive = false;
+}
+}
+const johnCar = new Car("Honda", "Red");
+console.log(`Warna mobil: ${johnCar.color}`); // output -> Warna Mobil: Red
+johnCar.color = "White"; // Mengubah nilai properti color menjadi white
+console.log(`Warna mobil: ${johnCar.color}`); // output -> Warna Mobil: White
+```
+
+
+Dengan class kita juga dapat mengimplementasi getter/setter sebuah properti menjadi sebuah
+method seperti ini:
+
+```javascript
+class Car {
+constructor(manufacture, color) {
+this.manufacture = manufacture;
+this._color = color;
+this.enginesActive = false;
+}
+get color() {
+return `Warna mobile ${this._color}`;
+}
+set color(value) {
+console.log(`Warna mobil diubah dari ${this._color} menjadi ${value}`);
+this._color = value;
+}
+}
+const johnCar = new Car("Honda", "Red");
+console.log(johnCar.color); // output -> Warna Mobil: Red
+johnCar.color = "White"; // Mengubah nilai properti color menjadi white
+console.log(johnCar.color); // output -> Warna Mobil: White
+```
+
+Perhatikan juga ketika kita menerapkan getter/setter pada properti class. Kita perlu mengubah
+atau membedakan penamaan properti aslinya dengan property accessor yang kita buat.
+Berdasarkan code convention yang ada kita perlu mengubah properti asli class-nya dengan
+menambahkan underscore di depan nama propertinya (_color). Tanda underscore berfungsi
+sebagai tanda bahwa properti _color tidak sebaiknya diakses langsung, namun harus
+melalui property accessor(getter/setter).
+
+### Method ###
+Untuk menambahkan method pada class, kita juga cukup menuliskannya pada body class,
+tidak perlu melalui prototype seperti menggunakan constructor function.
+
+```javascript
+class Car {
+constructor(manufacture, color) {
+this.manufacture = manufacture;
+this.color = color;
+this.enginesActive = false;
+}
+startEngines() {
+console.log("Mesin dinyalakan");
+this.enginesActive = true;
+}
+info() {
+console.log(`Manufacture: ${this.manufacture}`);
+console.log(`Color: ${this.color}`);
+console.log(`Engines: ${this.manufacture ? "Active" : "Inactive"}`);}
+}
+const johnCar = new Car("Honda", "Red");
+johnCar.startEngines();
+johnCar.info();
+/* output:
+Mesin dinyalakan
+Manufacture: Honda
+Color: Red
+Engines: Active
+*/
+```
+
+Dengan menggunakan class, walaupun kita menuliskan method pada body class, namun
+method tersebut tetap berada pada prototype chain miliki instance yang terbuat. Kita bisa
+melihat bagaimana objek yang dibuat menggunakan class pada console browser.
