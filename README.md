@@ -710,3 +710,53 @@ parameter namedengan nilai default “Stranger”, dan parameter greet dengan ni
 default “Hello”. Hal ini sangat berguna ketika kita memanggil fungsi sayHello() tanpa
 menetapkan nilai parameter di dalamnya, karena walaupun kita tidak menetapkan nilainya,
 kedua parameter tersebut tidak akan menghasilkan undefined.
+
+### OOP
+Paradigma OOP selalu digambarkan dengan kehidupan nyata. Visualisasi di atas
+mencontohkan gambaran umum OOP di mana terdapat sebuah blueprint kucing, nilai yang
+dimiliki kucing, dan kemampuan yang dapat dilakukan olehnya. Dalam OOP blueprint
+tersebut dikenal dengan class (kelas), nilai yang dimiliki olehnya dikenal dengan properti,
+kemampuan yang dimilikinya dikenal sebagai behaviour/method dan realisasi dari sebuah
+blueprint tersebut disebut instance.
+
+### A Class Before ES6 ###
+Sebelum ES6, Hal yang paling mendekati dengan class yaitu membuat sebuah objek
+menggunakan constructor function dan keyword new, lalu untuk menambahkan method kita
+gunakan konsep prototype.
+
+```javascript
+function Car(manufacture, color) {
+this.manufacture = manufacture;
+this.color = color;
+this.enginesActive = false;
+}
+Car.prototype.startEngines = function () {
+console.log('Mobil dinyalakan...');
+this.enginesActive = true;
+};
+Car.prototype.info = function () {
+console.log("Manufacture: " + this.manufacture);
+console.log("Color: " + this.color);
+console.log("Engines: " + this.manufacture ? "Active" : "Inactive");
+}
+var johnCar = new Car("Honda", "Red");
+johnCar.startEngines();
+johnCar.info();
+/* output:
+Mobil dinyalakan...
+Manufacture: Honda
+Color: Red
+Engines active: true
+*/
+```
+Pada kode di atas Car merupakan constructor function yang akan membuat instance Car baru
+setiapkan kode new Car() dieksekusi. Melalui Car.prototype,
+method startEngines() dan carInfo() diwarisi pada setiap instance Car yang dibuat,
+sehingga johnCar (sebagai instance Car) dapat mengakses kedua method tersebut.
+Teknik dasar ini yang digunakan dalam membuat class di JavaScript sebelum ES6.
+
+### ES6 Classes ### 
+Dengan hadirnya class pada ES6, pembuatan class di JavaScript menjadi lebih mudah dan
+juga penulisannya mirip seperti bahasa pemrograman lain berbasis class. Pembuatan class
+pada ES6 menggunakan keyword class itu sendiri kemudian diikuti dengan nama class-nya.
+
