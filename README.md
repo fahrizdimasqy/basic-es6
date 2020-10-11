@@ -956,3 +956,25 @@ Engines: Active
 Dengan menggunakan class, walaupun kita menuliskan method pada body class, namun
 method tersebut tetap berada pada prototype chain miliki instance yang terbuat. Kita bisa
 melihat bagaimana objek yang dibuat menggunakan class pada console browser.
+
+### Inheritance ###
+Dalam gambaran dunia nyata, banyak objek yang berbeda tetapi punya kesamaan atau
+kemiripan tertentu. Contohnya mobil dengan motor memiliki banyak kesamaan karena objek
+tersebut merupakan kendaraan. Mobil merupakan kendaraan darat begitu juga dengan motor.
+Mungkin yang membedakan objek tersebut adalah jumlah roda dan kapasitas penumpang
+yang dapat ditampung.
+
+Sama halnya pada OOP, beberapa objek yang berbeda bisa saja memiliki kesamaan dalam hal
+tertentu. Di situlah konsep inheritance atau pewarisan harus diterapkan. Pewarisan dapat
+mencegah kita melakukan perulangan kode.
+
+Dengan teknik inheritance, kita bisa mengelompokkan properti dan method yang sama.
+Caranya dengan membuat sebuah kelas baru yang nantinya akan diturunkan sifatnya pada
+
+Ketika class Vehicle telah dibuat, kelas lainnya dapat melakukan extends pada kelas tersebut
+untuk mewarisi sifatnya. Dalam pewarisan, class Vehicle dapat disebut sebagai super atau
+parent class. Kelas yang mewarisi sifat dari parent class disebut dengan child class.
+
+
+
+
