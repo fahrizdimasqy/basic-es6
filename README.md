@@ -1025,6 +1025,34 @@ ketika kendaraan mengalami kerusakan maka kendaraan tersebut akan diperbaiki di 
 class tersebut VehicleFactory. Di dalam kelas VehicleFactory terdapat satu
 method repair() yang dapat menerima banyak kendaraan sebagai parameternya.
 
+sebelum ada static method
+```javascript
+class Vehicle {
+constructor(licensePlate, manufacture) {
+this.licensePlate = licensePlate;
+this.manufacture = manufacture;
+this.engineActive = false;
+}
+/*
+kode lainnya
+*/
+}
+/* kode lainnya dalam pembuatan class Car,
+Motorcycle, dsb. */
+class VehicleFactory {
+repair(vehicles) {
+vehicles.forEach(vehicle => {
+console.log(`Kendaraan ${vehicle.licensePlate} sedang melakukan perawatan`)
+})
+}
+}
+const johnCar = new Car("H121S", "Honda", 4);
+const dimasCar = new Car("TA1408K", "Tesla", 4);
+/* Membuat instance untuk memanggil fungsi repair */
+const vehicleFactory = new VehicleFactory();
+vehicleFactory.repair([johnCar, dimasCar]);
+```
+
 Static method merupakan method yang tidak dapat dipanggil oleh
 instance dari class, namun dapat dipanggil melalui class-nya sendiri.
 ```javascript
@@ -1047,5 +1075,16 @@ console.log(`Kendaraan ${vehicle.licensePlate} sedang melakukan perawatan`)
 })
 }
 }
+lass VehicleFactory {
+static repair(vehicles) {
+vehicles.forEach(vehicle => {
+console.log(`Kendaraan ${vehicle.licensePlate} sedang melakukan perawatan`)
+})
+}
+}
+const johnCar = new Car("H121S", "Honda", 4);
+const dimasCar = new Car("TA1408K", "Tesla", 4);
+/* Pemanggilan method repair langsung dari class-nya */
+VehicleFactory.repair([johnCar, dimasCar]);
 ```
 
