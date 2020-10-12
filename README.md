@@ -975,6 +975,77 @@ Ketika class Vehicle telah dibuat, kelas lainnya dapat melakukan extends pada ke
 untuk mewarisi sifatnya. Dalam pewarisan, class Vehicle dapat disebut sebagai super atau
 parent class. Kelas yang mewarisi sifat dari parent class disebut dengan child class.
 
+```javascript
+class Vechile {
+            constructor(licensePlate, manufacture) {
+                this.licensePlate = licensePlate;
+                this.manufacture = manufacture;
+                this.engineActive = false;
+            }
+            startEnggines() {
+                console.log(`Mesin kendaraan ${this.licensePlate} dinyalakan!`);
+            }
 
+            info() {
+                console.log(`Nomor Kendaraan: ${this.licensePlate}`);
+                console.log(`Manufacture: ${this.manufacture}`);
+                console.log(`Mesin: ${this.engineActive ? "Active": "Inactive"}`);
+            }
 
+            parking() {
+                console.log(`Kendaraan ${this.licensePlate} parkir!`);
+            }
+        }
+        class Car extends Vechile {
+            constructor(lisencePlate, manufacture, wheels) {
+                super(lisencePlate, manufacture);
+                this.wheels = wheels;
+            }
+            droveOff() {
+                console.log(`Kendaraan ${this.licensePlate} melaju!`);
+            }
+            openDoor() {
+                console.log(`Membuka pintu!`);
+            }
+
+        }
+        const car = new Car("hahaha", "honda", 4);
+        car.startEnggines();
+```
+Dalam melakukan pewarisan kelas, tidak ada tingkatan yang membatasinya. Maksudnya, kita
+dapat mewariskan sifat kelas A pada kelas B, lalu kelas B mewarisi sifatnya kembali pada
+kelas C dan selanjutnya. Sama halnya dengan Nenek kita mewarisi sifatnya kepada orang tua
+kita kemudian orang tua kita mewarisi sifatnya kepada kita.
+
+### Static Method ###
+Seluruh kendaraan pasti butuh yang namanya perawatan bukan? Jika iya, tentu kita perlu
+membuat method repair untuk memperbaiki kendaraan tersebut. Dalam analogi dunia nyata,
+ketika kendaraan mengalami kerusakan maka kendaraan tersebut akan diperbaiki di bengkel
+(factory), sehingga kita perlu membuat class baru yang berperan sebagai factory, sebutlah
+class tersebut VehicleFactory. Di dalam kelas VehicleFactory terdapat satu
+method repair() yang dapat menerima banyak kendaraan sebagai parameternya.
+
+Static method merupakan method yang tidak dapat dipanggil oleh
+instance dari class, namun dapat dipanggil melalui class-nya sendiri.
+```javascript
+class Vehicle {
+constructor(licensePlate, manufacture) {
+this.licensePlate = licensePlate;
+this.manufacture = manufacture;
+this.engineActive = false;
+}
+/*
+kode lainnya
+*/
+}
+/* kode lainnya dalam pembuatan class Car,
+Motorcycle, dsb. */
+class VehicleFactory {
+static repair(vehicles) {
+vehicles.forEach(vehicle => {
+console.log(`Kendaraan ${vehicle.licensePlate} sedang melakukan perawatan`)
+})
+}
+}
+```
 
