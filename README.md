@@ -1088,3 +1088,46 @@ const dimasCar = new Car("TA1408K", "Tesla", 4);
 VehicleFactory.repair([johnCar, dimasCar]);
 ```
 
+## Synchronous vs Asynchronous
+Dalam synchronous program, jika kita menuliskan dua baris kode maka baris kode yang
+kedua tidak bisa dieksekusi sebelum mengeksekusi kode pada baris pertama.
+dalam kehidupan nyata ketika mengantri membeli kopi di sebuah kedai kopi.
+Kita tidak bisa mendapatkan kopi sebelum semua antrian di depan kita selesai dilayani, sama
+hal nya orang yang di belakang kita pun harus menunggu gilirannya.
+
+Dalam asynchronous program, jika kita menuliskan dua baris kode, kita dapat membuat baris
+kode kedua dieksekusi tanpa harus menunggu kode pada baris pertama selesai dieksekusi.
+Dalam dunia nyata kita bisa membayangkan dengan memesan kopi namun memesannya
+melalui pelayan, di mana sembari kita menunggu pesannya datang, kita dapat melakukan
+aktivitas lain seperti membuka laptop, menulis, hingga kopi itu datang dengan sendirinya.
+
+### setTimeout ###
+Fungsi setTimeout() merupakan cara yang paling mudah untuk membuat kode kita dijalankan
+secara asynchronous. Fungsi ini menerima dua buah parameter. Pertama adalah fungsi yang
+akan dijalankan secara asynchronous, dan kedua adalah
+nilai number dalam milisecond sebagai nilai tunggu sebelum fungsi dijalankan.
+
+```javascript
+ console.log("Selamat datang");
+        setTimeout(() => {
+            console.log("Terimakasih sudah mampir, silakan datang kembali!");
+        }, 300)
+        console.log("Terimakasih sudah mampir, silakan datang kembali!");
+```
+
+Jika kita hanya mengenal program secara synchronous, maka kita dapat membayangkan
+hasilnya memiliki urutan sebagai berikut:
+-Mencetak -> Selamat datang!
+-Menunggu selama tiga detik
+-Mencetak -> Terima kasih sudah mampir, silakan datang kembali!
+-Mencetak -> Ada yang bisa dibantu?
+
+Namun nyatanya setTimeout() tidak akan menghentikan JavaScript untuk melakukan
+eksekusi kode pada baris berikutnya. Sehingga urutannya menjadi seperti berikut:
+
+-Mencetak -> Selamat datang!
+-Mencetak -> Ada yang bisa dibantu?
+-Menunggu selama tiga detik
+-Mencetak -> Terimakasih sudah mampir, silakan datang kembali!
+
+### Callback Function ###
