@@ -1239,3 +1239,56 @@ yang dapat menerima satu parameter yang digunakan untuk memberikan alasan mengap
 Promise tidak dapat terpenuhi. Ketika fungsi ini terpanggil, kondisi Promise akan berubah
 dari pending menjadi rejected.
 
+Executor function akan berjalan secara asynchronous hingga akhirnya kondisi Promise
+berubah dari pending menjadi fulfilled/rejected.
+Pada contoh kode di atas, berikut ini outputnya:
+
+```javascript
+/* output:
+Promise { 'Kopi berhasil dibuat' }
+*/
+```
+Kenapa demikian? Executor function mengeksekusi resolve() dengan membawa data string
+“Kopi berhasil dibuat”. Coba kita ubah nilai dari
+variabel isCoffeeMakerReady menjadi false, maka executor function akan
+mengeksekusi reject() dengan membawa pesan rejection "Mesin Kopi tidak bisa
+digunakan!".
+
+Dari output yang dihasilkan baik ketika fulfilled ataupun rejected masih berupa Promise,
+bukan nilai yang dibawa oleh fungsi resolve atau reject itu sendiri. Lantas bagaimana cara
+untuk mengakses nilai yang dibawa oleh fungsi-fungsi tersebut? Caranya adalah dengan
+menggunakan method .then() yang tersedia pada objek Promise.
+
+### onFulfilled and onRejected Functions ###
+Untuk menangani nilai yang dikirimkan oleh resolve() ketika Promise onFulfilled, kita
+gunakan method .then() pada objek promise yang kita buat. Lalu di dalammethod .then() kita berikan parameter berupa function yang berguna sebagai handle callback.
+
+```javascript
+const executorFunction = (resolve, reject) => {
+const isCoffeeMakerReady = true;
+if(isCoffeeMakerReady) {
+resolve("Kopi berhasil dibuat");
+} else {
+reject("Mesin Kopi tidak bisa digunakan!")
+}
+}
+const handlerSuccess = resolvedValue => {
+console.log(resolvedValue);
+}
+const makeCoffee = new Promise(executorFunction);
+makeCoffee.then(handlerSuccess)
+/* output:
+Kopi berhasil dibuat
+*/
+```
+* makeCoffee merupakan objek promise yang akan menghasilkan resolve() dengan membawa
+nilai ‘Kopi berhasil dibuat’.
+* Lalu kita mendeklarasikan fungsi handlerSuccess() yang mencetak nilai dari parameternya.
+* Kemudian kita memanggil method .then() dari makeCoffee dan
+memberikan handlerSuccess sebagai parameternya.
+* etika makeCoffee terpenuhi (fulfilled), maka handlerSuccess() akan terpanggil
+dengan parameter nilai yang dibawa oleh resolve(). Sehingga output akan
+menghasilkan “Kopi berhasil dibuat”.
+
+Namun bagaimana jika objek promise menghasilkan kondisi rejected? Bagaimana cara
+menangani nilai yang dikirimkan oleh reject()?
