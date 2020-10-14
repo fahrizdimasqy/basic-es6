@@ -1178,3 +1178,64 @@ Sedang membuat kue, silakan tunggu ....
 Kue Selesai!
 */
 ```
+
+### Promise ###
+Fitur ini berfungsi seperti namanya, yaitu untuk membuat janji. Mari kita analogikan kembali
+dalam dunia nyata. Ketika kita memesan kopi kepada pelayan, maka secara tidak langsung
+pelayan tersebut berjanji kepada kita untuk membuatkan kopi kemudian menghidangkannya
+pada kita. Namun janji bisa hanya tinggal janji. Dalam dunia nyata pun, janji bisa juga tidak
+terpenuhi, entah itu karena kopi pesanan kita sedang kosong, atau mesin pembuat kopi itu
+sedang rusak.
+
+Nah, Promise memiliki perilaku yang sama dengan analogi yang digambarkan tadi. Dalam
+promise terdapat 3 (tiga) kondisi, yakni:
+
+* Pending (Janji sedang dalam proses)
+* Fulfilled (Janji terpenuhi)
+* Rejected (Janji gagal terpenuhi)
+
+Situs MDN mengatakan Promise merupakan sebuah objek yang digunakan untuk membuat
+sebuah perhitungan (kode) ditangguhkan dan berjalan secara asynchronous. Untuk membuat
+objek promise, kita gunakan keyword new diikuti dengan constructor dari Promise:
+
+```javascript
+const coffee = new Promise();
+```
+Namun jika kita jalankan kode tersebut, akan mengakibatkan eror seperti ini:
+
+```javascript
+/* ERROR: Promise resolver undefined is not a function */
+```
+Di dalam constructor Promise kita perlu menetapkan resolver function atau bisa
+disebut executor function di mana fungsi tersebut akan dijalankan secara otomatis ketika
+constructor Promise dipanggil.
+
+```javascript
+const executorFunction = (resolve, reject) => {
+const isCoffeeMakerReady = true;
+if(isCoffeeMakerReady) {
+resolve("Kopi berhasil dibuat");
+} else {
+reject("Mesin Kopi tidak bisa digunakan!")
+}
+}
+const makeCoffee = new Promise(executorFunction);
+console.log(makeCoffee);
+/* output:
+Promise { 'Kopi berhasil dibuat' }
+*/
+```
+
+Executor function dapat memiliki dua parameter, yang berfungsi
+sebagai resolve() dan reject()function. Berikut penjelasan detailnya:
+
+* resolve() merupakan parameter pertama pada executor function. Parameter ini
+merupakan fungsi yang dapat menerima satu parameter, biasanya kita gunakan untuk
+mengirimkan data ketika promise berhasil dilakukan. Ketika fungsi ini terpanggil,
+kondisi Promise akan berubah dari pending menjadi fulfilled.
+
+* reject() merupakan parameter kedua pada executor function. Parameter ini merupakan fungsi
+yang dapat menerima satu parameter yang digunakan untuk memberikan alasan mengapa
+Promise tidak dapat terpenuhi. Ketika fungsi ini terpanggil, kondisi Promise akan berubah
+dari pending menjadi rejected.
+
