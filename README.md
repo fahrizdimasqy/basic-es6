@@ -1294,7 +1294,6 @@ Namun bagaimana jika objek promise menghasilkan kondisi rejected? Bagaimana cara
 menangani nilai yang dikirimkan oleh reject()?
 
 ```javascript
-```javascript
 const executorFunction = (resolve, reject) => {
 const isCoffeeMakerReady = false;
 if(isCoffeeMakerReady) {
@@ -1319,5 +1318,43 @@ Mesin Kopi tidak bisa digunakan!
 ```
 
 ### onRejected with Catch Method ###
+Method .catch() mirip seperti .then(). Namun method ini hanya menerima satu parameter
+function yang digunakan untuk rejected handler. Method .catch() ini akan terpanggil
+bilamana objek promise memiliki kondisi onRejected. Berikut contoh penggunaan dari
+method
+```javascript
+const executorFunction = (resolve, reject) => {
+const isCoffeeMakerReady = false;
+if(isCoffeeMakerReady) {
+resolve("Kopi berhasil dibuat");
+} else {
+reject("Mesin Kopi tidak bisa digunakan!")
+}
+}
+const handlerSuccess = resolvedValue => {
+console.log(resolvedValue);
+}
+const handlerRejected = rejectionReason => {
+console.log(rejectionReason);
+}
+const makeCoffee = new Promise(executorFunction);
+makeCoffee.then(handlerSucces)
+.catch(handlerRejected);
+
+
+/* output:
+Mesin Kopi tidak bisa digunakan!
+*/
+```
+
+Dengan menggunakan method catch(), kita dapat menerapkan prinsip separation of concerns
+sekaligus membuat kodenya lebih rapi
+
+### Chaining Promise ###
+Dengan promise kita dapat melakukan proses asynchronous operation secara berantai.
+Contohnya, Ketika kita memesan kopi robusta, maka tahapan yang dilalui oleh barista adalah
+memastikan biji kopi tersedia, membuat kopi, lalu menghidangkannya kepada pelanggan.
+Tahapan tersebut harus barista lakukan secara berurutan.
+
 
 
