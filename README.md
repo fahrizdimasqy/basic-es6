@@ -1292,3 +1292,32 @@ menghasilkan “Kopi berhasil dibuat”.
 
 Namun bagaimana jika objek promise menghasilkan kondisi rejected? Bagaimana cara
 menangani nilai yang dikirimkan oleh reject()?
+
+```javascript
+```javascript
+const executorFunction = (resolve, reject) => {
+const isCoffeeMakerReady = false;
+if(isCoffeeMakerReady) {
+resolve("Kopi berhasil dibuat");
+} else {
+reject("Mesin Kopi tidak bisa digunakan!")
+}
+}
+const handlerSuccess = resolvedValue => {
+console.log(resolvedValue);
+}
+const handlerRejected = rejectionReason => {
+console.log(rejectionReason);
+}
+const makeCoffee = new Promise(executorFunction);
+makeCoffee.then(handlerSuccess,handlerRejected);
+
+
+/* output:
+Mesin Kopi tidak bisa digunakan!
+*/
+```
+
+### onRejected with Catch Method ###
+
+
