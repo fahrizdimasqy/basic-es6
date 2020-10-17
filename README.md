@@ -1443,5 +1443,46 @@ Method Promise.all() dapat menerima banyak promise (dalam bentuk array) pada
 parameternya. Kemudian method tersebut akan mengembalikan nilai seluruh hasil dari
 promise yang kita tetapkan dalam bentuk array.
 
+```javascript
+const arabicaOrder = () => {
+          return new Promise(resolve => {
+              setTimeout(()=>{
+                  resolve("Kopi arabica selesai");
+              }, 4000)
+          })
+      }
+      const robustaOrder = () =>{
+          return new Promise(resolve =>{
+              setTimeout(()=>{
+                  resolve("kopi robusta selesai")
+              },2000)
+          }) 
+      }
+      const libericaOrder = () =>{
+          return new Promise(resolve =>{
+              setTimeout(()=>{
+                  resolve("kopi liberica selesai")
+              },3000)
+          }) 
+      }
+      const promises = [arabicaOrder(),robustaOrder(),libericaOrder()];
+      Promise.all(promises)
+      .then(resolvedValue => console.log(resolvedValue))
+```
+
+Ketika kode di atas dieksekusi, kita perlu menunggu 4 detik sebelum akhirnya output pada
+console ditampilkan. Ini menunjukan bahwa Promise.all() akan mengembalikan nilai jika
+seluruh proses promise di dalamnya selesai dijalankan.
+
+Urutan nilai yang dihasilkan oleh method ini sesuai dengan urutan promise yang kita
+tentukan pada parameternya
+```javascriptconst promises = [arabicaOrder(), robustaOrder(), libericaOrder()];
+Promise.all(promises)
+.then(resolvedValue => {
+console.log(resolvedValue);
+})
+```
+
+### Async-Await Syntax ###
 
 
