@@ -1356,5 +1356,92 @@ Contohnya, Ketika kita memesan kopi robusta, maka tahapan yang dilalui oleh bari
 memastikan biji kopi tersedia, membuat kopi, lalu menghidangkannya kepada pelanggan.
 Tahapan tersebut harus barista lakukan secara berurutan.
 
+```javascript
+const state = {
+isCoffeeMakerReady: true,
+seedStocks: {
+arabica: 250,
+robusta: 60,
+liberica: 80
+}
+}
+const getSeeds = (type, miligrams) => {
+return new Promise((resolve, reject) => {
+if(state.seedStocks[type] >= miligrams) {
+state.seedStocks[type] -= miligrams;
+resolve("Biji kopi didapatkan!")
+} else {
+reject("Maaf stock kopi habis!")
+}
+});
+}
+onst makeCoffee = seeds => {
+return new Promise((resolve, reject) => {
+if(state.isCoffeeMakerReady) {
+resolve("Kopi berhasil dibuat!")
+} else {
+reject("Maaf mesin tidak dapat digunakan!");
+}
+})
+}
+const servingToTable = coffee => {
+return new Promise(resolve => {
+resolve("Pesanan kopi sudah selesai!")
+})
+}
+function reserveACoffee(type, miligrams) {
+getSeeds(type, miligrams)
+.then(makeCoffee)
+.then(servingToTable)
+.then(resolvedValue => {
+console.log(resolvedValue);
+})
+.catch(rejectedReason => {
+console.log(rejectedReason);
+})
+}
+/* Silakan ubah tipe kopi dan kuantitasnya, untuk mendapatkan promise rejection*/
+reserveACoffee("liberica", 80);
+```
+Ketika kita memesan kopi melalui fungsi reserveACoffee(), pertama barista akan mengambil
+biji kopi melalui fungsi getSeeds(). Fungsi ini membutuhkan 2 (dua) parameter
+yaitu type (tipe kopi), dan miligrams (banyak kopi yang diperlukan). Fungsi ini
+mengembalikan objek promise, di mana jika biji yang dipesan tersedia akan
+mengembalikan resolve -> “Biji kopi didapatkan!”. Namun jika biji kopi tidak tersedia, maka
+akan mengembalikan reject -> “Maaf stok kopi habis!”. Berikut kode dari fungsi getSeeds:
+
+Lalu kita panggil method .then() dari fungsi getSeeds, dan memberikan parameter
+fungsi makeCoffee di dalamnya. Fungsi makeCoffee() akan menerima parameter berupa nilai
+yang dibawa resolve pada getSeeds(). Fungsi ini juga mengembalikan nilai promise juga, dimana jika mesin kopi siap digunakan, maka akan mengembalikan resolve -> “Kopi berhasil
+dibuat”. Namun jika sebaliknya, mesin kopi tidak siap untuk digunakan, maka akan
+mengembalikan reject -> “Maaf mesin tidak dapat digunakan!”. Berikut kode dari
+fungsi makeCoffee:
+
+Setelah kita mendapatkan kopi dari fungsi makeCoffee. Lalu kopi tersebut dihidangkan
+dengan menggunakan fungsi servingToTable. Fungsi ini juga mengembalikan promise
+dengan resolve yang membawa nilai “Pesanan kopi sudah selesa!”.
+
+Lalu kita gunakan method .then() yang terakhir untuk mencetak nilai yang dikembalikan oleh
+fungsi servingToTable.
+Kemudian yang paling terakhir adalah memanggil method .catch(). Di mana method ini akan
+menangani promise rejection yang terjadi. Entah itu disebabkan oleh biji kopi yang dipesan
+habis, ataupun mesin kopi tidak dapat digunakan.
+
+### Promise All ###
+Materi sebelumnya kita belajar bagaimana promise dapat menangani situasi di mana
+terdapat asynchronous process yang saling membutuhkan untuk melaksanakan tugasnya.
+
+Namun bagaimana jika kita ingin menjalankan banyak promise sekaligus namun tidak
+memperdulikan urutan?
+
+Kita sering pergi ke cafe untuk menikmati secangkir kopi bersama teman kuliah ataupun
+rekan kerja. Ketika memesan kopi, biasanya kita lakukan secara bersamaan. Meskipun kopi
+yang kita pesan berbeda, tak jarang pelayan menghidangkannya berbarengan dengan kopi
+yang teman kita pesan. Nah pada kasus inilah pelayan menggunakan teknik Promise.all().
+
+Method Promise.all() dapat menerima banyak promise (dalam bentuk array) pada
+parameternya. Kemudian method tersebut akan mengembalikan nilai seluruh hasil dari
+promise yang kita tetapkan dalam bentuk array.
+
 
 
