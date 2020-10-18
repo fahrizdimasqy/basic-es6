@@ -1701,3 +1701,8 @@ Jika kita berada di luar environment Node.js, contohnya browser, kita tetap bisa
 melakukan impor dan ekspor module JavaScript dengan menggunakan keyword
 import dan export yang tersedia mulai dari ES6.
 
+Pada ES6 module, jika kita hanya mengekspor satu nilai
+pada sebuah berkas JavaScript baik itu primitive value, function, array, object
+ataupun class, kita gunakan keyword export default
+
+
