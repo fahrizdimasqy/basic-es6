@@ -1598,3 +1598,25 @@ const state = {
 ```
 Async/await ini menjadi fitur baru yang sangat berguna. Terlebih untuk kita yang lebih
 nyaman menangani proses asynchronous dengan menggunakan gaya synchronous.
+
+### Node.js Export and Import Modules ###
+module bekerja dengan cara exporting atau importing nilai baik itu variabel, fungsi, array, objek ataupun
+class agar dapat digunakan pada berkas JavaScript lain. Dalam satu berkas
+JavaScript terdiri dari satu module, dan di dalamnya kita dapat
+melakukan exportlebih dari satu nilai.
+Dalam environment Node.js, untuk melakukan import dan export module kita
+gunakan module.exports. Setiap berkas JavaScript yang berjalan pada Node,
+memiliki objek module lokal yang memiliki properti exports. Properti tersebut
+digunakan untuk mendefinisikan nilai apa yang akan diekspor dari berkas tersebut.
+Kode di bawah ini merupakan contoh bagaimana cara melakukan export nilai
+dengan menggunakan module.exports.
+```javascript
+const coffeeStock = {
+    arabica: 100,
+    robusta: 150,
+    liberica: 200
+ }
+module.exports = coffeeStock
+```
+Berkas state.js
+
