@@ -1649,4 +1649,55 @@ const coffeeStock = {
 }
 module.exports = coffeeStock;
 ```
+Dengan begitu variabel coffeeStock akan memiliki
+nilai module.exports yang sama pada berkas state.js. Setelah mendapatkan
+nilainya, kita bebas menggunakannya layaknya variabel lokal pada biasanya.
+
+```javascript
+const coffeeStock = require('./state.js');
+const makeCoffee = (type, miligrams) => {
+if(coffeeStock[type] >= miligrams) {
+console.log("Kopi berhasil dibuat!")
+} else {
+console.log("Biji kopi habis!")
+}
+}
+makeCoffee("robusta", 80);
+
+/* output:module.exports = {coffeeStock, isCoffeeMakerReady};
+Kopi berhasil dibuat!
+ *
+```
+
+### Multiple export value in Node.js ###
+
+Sebenarnya nilai yang diekspor tetaplah satu, namun jika terdapat kasus di mana
+kita ingin mengekspor lebih dari satu nilai, kita dapat memanfaatkan objek literals { }.
+Contohnya, mari kita kita tambahkan variabel isCoffeeMakerReady pada
+berkas state.js.
+* state.js
+
+```javascript
+const coffeeStock = {
+    arabica: 100,
+    robusta: 150,
+    liberica: 200
+}
+const isCoffeeMakerReady = true;
+module.exports = {coffeeStock, isCoffeeMakerReady};
+```
+
+* index.js
+```javascript
+const {coffeeStock, isCoffeeMakerReady} = require('./state.js');
+console.log(coffeeStock);
+/* output
+{ arabica: 100, robusta: 150, liberica: 200 }
+true
+*/
+```
+### ES6 Modules ###
+Jika kita berada di luar environment Node.js, contohnya browser, kita tetap bisa
+melakukan impor dan ekspor module JavaScript dengan menggunakan keyword
+import dan export yang tersedia mulai dari ES6.
 
