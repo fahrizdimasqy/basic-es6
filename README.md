@@ -1620,3 +1620,33 @@ module.exports = coffeeStock
 ```
 Berkas state.js
 
+Kode module.exports = coffeeStock membuat object coffeeStock diterapkan
+sebagai nilai dari module.exports. Di mana nanti nilai properti exports ini akan
+digunakan (import) pada berkas JavaScript lain.
+Jika mencoba melihat nilai module yang ada pada berkas state.js dengan
+menambahkan kode console.log(module) di akhir berkasnya. Maka kita akan
+melihat objek coffeeStock menjadi nilai dari properti exports.
+
+Lalu bagaimana caranya untuk melakukan import atau menggunakan objek yang
+sudah di-export pada berkas lain? Caranya adalah dengan menggunakan
+method require().
+
+* index.js
+```javascript
+const coffeeStock = require('./state.js');
+console.log(coffeeStock);
+/* output
+{ arabica: 100, robusta: 150, liberica: 200 }
+*/
+```
+
+* state.js
+```javascript
+const coffeeStock = {
+    arabica: 100,
+    robusta: 150,
+    liberica: 200
+}
+module.exports = coffeeStock;
+```
+
