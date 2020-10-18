@@ -1484,5 +1484,117 @@ console.log(resolvedValue);
 ```
 
 ### Async-Await Syntax ###
+```javascript
+const getCoffee = () => {
+            return new Promise((resolve, reject) => {
+                const seeds = 100;
+                setTimeout(() => {
+                    if (seeds >= 10) {
+                        resolve("Coffee didapatkan!");
+                    } else {
+                        reject("Biji kopi habis!")
+                    }
+                }, 1000)
+            })
+        }
 
+        async function makeCoffee() {
+            const coffee = await getCoffee();
+            console.log(coffee);
+        }
+        makeCoffee();
+```
+Keyword async digunakan untuk memberitahu JavaScript untuk menjalankan
+fungsi makeCoffee()secara asynchronous. Lalu keyword await digunakan untuk
+menghentikan proses pembacaan kode selanjutnya sampai fungsi getCoffee() mengembalikan
+nilai promise resolve.
 
+> “Walaupun await menghentikan proses pembacaan kode selanjutnya pada
+fungsi makeCoffee. Tapi ini tidak akan mengganggu proses runtime sesungguhnya pada
+JavaScript (global). Karena fungsi makeCoffee berjalan secara asynchronous. Kita tidakdapat menggunakan await tanpa membuat function dalam scope-nya berjalan secara asynchronous.”
+
+### Handle onRejected using async/await ###
+Perlu jadi catatan bahwa await hanya akan mengembalikan nilai jika promise berhasil
+dilakukan (onFulfilled). Lantas bagaimana jika promise gagal dilakukan (onRejected)?
+Kembali lagi kepada prinsip synchronous code. Kita dapat menangani sebuah eror atau
+tolakan dengan menggunakan try...catch.
+
+Ketika menggunakan async/await, biasakan ketika mendapatkan resolved value dari sebuah
+promise, untuk menempatkannya di dalam block try
+```javascript
+const getCoffee = () => {
+            return new Promise((resolve, reject) => {
+                const seeds = 9;
+                setTimeout(() => {
+                    if (seeds >= 10) {
+                        resolve("Coffee didapatkan!");
+                    } else {
+                        reject("Biji kopi habis!")
+                    }
+                }, 1000)
+            })
+        }
+
+        async function makeCoffee() {
+            try{
+            const coffee = await getCoffee();
+            console.log(coffee);
+            } catch(rejectedReason) {
+              console.log(rejectedReason);
+            }
+        }
+        makeCoffee();
+        /* output
+        Biji kopi habis!
+        */
+```
+
+### Chaining Promise using async/await ###
+```javascript
+const state = {
+            isCoffeeMakerReady: true,
+            seedStocks: {
+                arabica: 250,
+                robusta: 60,
+                liberica: 80
+            }
+        }
+        const getSeeds = (type, miligrams) => {
+            return new Promise((resolve, reject) => {
+                if (state.seedStocks[type] >= miligrams) {
+                    state.seedStocks[type] -= miligrams;
+                    resolve("Biji kopi didapatkan!")
+                } else {
+                    reject("Maaf stock kopi habis!")
+                }
+            });
+        }
+        const makeCoffee = seeds => {
+            return new Promise((resolve, reject) => {
+                if (state.isCoffeeMakerReady) {
+                    resolve("Kopi berhasil dibuat!")
+                } else {
+                    reject("Maaf mesin tidak dapat digunakan!");
+                }
+            })
+        }
+        const servingToTable = coffee => {
+            return new Promise(resolve => {
+                resolve("Pesanan kopi sudah selesai!")
+            })
+        }
+
+        async function reserveACoffee(type, miligrams) {
+            try{
+            const seeds = await getSeeds(type, miligrams);
+            const coffee = await makeCoffee(seeds);
+            const result = await servingToTable(coffee);
+            console.log(result);
+        } catch (rejectionReason){
+            console.log(rejectionReason);
+        }
+        }
+        reserveACoffee("liberica", 80);
+```
+Async/await ini menjadi fitur baru yang sangat berguna. Terlebih untuk kita yang lebih
+nyaman menangani proses asynchronous dengan menggunakan gaya synchronous.
