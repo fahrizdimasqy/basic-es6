@@ -1705,4 +1705,17 @@ Pada ES6 module, jika kita hanya mengekspor satu nilai
 pada sebuah berkas JavaScript baik itu primitive value, function, array, object
 ataupun class, kita gunakan keyword export default
 
+```javascript
+const coffeeStock = {
+    arabica: 100,
+    robusta: 150,
+    liberica: 200
+}
+export default coffeeStock;
+```
+
+Lalu bagaimana cara untuk mengimpor nilainya? Kita dapat melakukannya dengan
+menggunakan keyword import ... from seperti berikut ini:
+
+
 
