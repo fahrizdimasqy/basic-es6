@@ -1717,5 +1717,94 @@ export default coffeeStock;
 Lalu bagaimana cara untuk mengimpor nilainya? Kita dapat melakukannya dengan
 menggunakan keyword import ... from seperti berikut ini:
 
+```javascript
+import coffeeStock from "./state.js";
+```
 
+Ketika menggunakan export default, kita dapat menggunakan penamaan apa saja
+ketika mendeklarasikan variabel dalam mengimpor nilainya.
 
+```javascript
+1. // Kita dapat mengubah penamaan coffeeStock sesuai kebutuhan kita.
+2. import stock from "./state.js";
+```
+
+Hal tersebut aman untuk dilakukan karena dengan menggunakan export default,
+dapat dipastikan hanya satu nilai yang diekspor pada satu berkas JavaScript.
+Setelah kita berhasil mendapatkan nilai yang diekspor, kita dapat menggunakan
+nilainya layaknya variabel lokal biasa.
+
+* app.js
+```javascript
+import coffeeStock from "./state.js";
+const displayStock = stock => {
+const coffeeStockListElement = document.querySelector("#coffee-stock-list");
+for(const type in stock) {
+const coffeeStockItemElement = document.createElement("li");
+coffeeStockItemElement.innerText = `${type}: ${stock[type]}`;
+coffeeStockListElement.appendChild(coffeeStockItemElement);
+ }
+}
+displayStock(coffeeStock);
+```
+
+* state.js
+```javascript
+const coffeeStock = {
+arabica: 100,
+robusta: 150,
+liberica: 200
+}
+export default coffeeStock;
+ ```
+ 
+ cara melakukan ekspor banyak nilai dalam satu berkas JavaScript dengan
+menggunakan ES6.
+Named export digunakan untuk mengekspor banyak nilai dalam berkas JavaScript.
+Cara kerjanya mirip seperti pada Node.js. Nilai yang akan diekspor dituliskan di
+dalam objek literals, seperti ini:
+
+```javascript
+const coffeeStock = {
+arabica: 100,
+robusta: 150,
+liberica: 200
+}
+const isCoffeeMakerReady = true;
+export { coffeeStock, isCoffeeMakerReady };
+```
+
+Lalu untuk mendapatkan nilai yang diekspor menggunakan named export, kita
+gunakan teknik destructuring object.
+
+```javascript
+import { coffeeStock, isCoffeeMakerReady } from "./state.js";
+console.log(coffeeStock);
+console.log(isCoffeeMakerReady);
+/* output:
+{ arabica: 100, robusta: 150, liberica: 200 }
+true
+*/
+```
+
+### Web Component
+Web component merupakan salah satu fitur yang ditetapkan standar World Wide
+Web Consortium (W3C). Fitur ini memudahkan developer dalam membuat
+komponen UI websitenya menjadi lebih modular.
+
+Web component bersifat reusable. Bahkan dapat digunakan walaupun kita
+menggunakan framework sekalipun. Apa pasal? Web component dibangun tak lain
+menggunakan JS/HTML/CSS murni. Terdapat dua API penting dalam menerapkan
+web component, yakni:
+
+* Custom Elements: Digunakan untuk membuat elemen baru (custom
+element). Kita juga bisa menentukan perilaku element tersebut sesuai
+kebutuhan.
+
+* Shadow DOM: Digunakan untuk membuat HTML element terenkapsulasi dari
+gangguan luar. Biasanya digunakan pada custom element, agar elemen
+tersebut tidak terpengaruh oleh styling yang ditetapkan di luar dari custom
+elemen-nya.
+
+### Custom Element
+HTML memberikan kemudahan dalam mengatur struktur website.
