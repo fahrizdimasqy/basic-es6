@@ -1808,3 +1808,88 @@ elemen-nya.
 
 ### Custom Element
 HTML memberikan kemudahan dalam mengatur struktur website.
+
+### HTMLElement merupakan interface yang merepresentasikan ###
+HTMLElement merupakan interface yang merepresentasikan
+element HTML. Interface ini biasanya diterapkan pada class JavaScript sehingga
+terbentuklah element HTML baru melalui class tersebut (custom element).
+
+```javascript
+class ImageFigure extends HTMLElement {
+}
+customElements.define("image-figure", ImageFigure);
+```
+
+customElements merupakan global variable yang digunakan untuk
+mendefinisikan custom elementdan memberitahu bahwa terdapat HTML tag baru. Di
+dalam customElements terdapat method yang bernama define(). Di sinilah kita
+meletakan tag name baru kemudian diikuti dengan JavaScript class yang
+menerapkan sifat HTMLElement.
+
+Setelah mendefinisikan custom element, barulah ia siap digunakan pada berkas
+HTML. Kita cukup menuliskan tagnya layaknya elemen HTML biasa.
+
+```html
+<image-figure></image-figure>
+```
+
+Jangan lupa lampirkan script pada berkas yang digunakan untuk menuliskan class
+ImageFigure.
+
+```html
+<script src="image-figure.js"></script>
+```
+
+Berikut kode lengkapnya:
+* index.html
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>My First Custom Element</title>
+</head>
+<body>
+<image-figure></image-figure>
+<script src="image-figure.js"></script>
+</body>
+</html>
+```
+
+```javascript
+class ImageFigure extends HTMLElement {}
+customElements.define("image-figure", ImageFigure);
+````
+
+
+### Life Cycle of Custom Element
+Ketika sebuah JavaScript class mewarisi sifat dari HTMLElement maka class
+tersebut akan memiliki siklus hidup layaknya sebuah elemen HTML. Kita dapat
+menerapkan logika pada setiap siklus hidup yang ada dengan memanfaatkanlifecycle callbacks yang ada. Berikut ini lifecycle callbacks yang ada pada
+HTMLElemen
+
+* connectedCallback() : Akan terpanggil setiap kali elemen berhasil ditambahkan ke
+dokumen HTML (DOM). Callback ini merupakan tempat yang tepat untuk
+menjalankan konfigurasi awal seperti mendapatkan data, atau mengatur attribute.
+
+* disconnectedCallback() : Akan terpanggil setiap kali elemen dikeluarkan
+(remove()) dari DOM. Callback ini merupakan tempat yang tepat untuk
+membersihkan data yang masih disimpan pada elemen. Bisa itu event, state,
+ataupun objek.
+
+* attributeChangedCallback() : Akan terpanggil setiap kali nilai atribut yang di-
+observe melalui fungsi static get observedAttributes diubah. Callback ini bisa kita
+manfaatkan untuk memuat ulang data yang ditampilkan oleh elemen.
+adoptedCallback() : Akan terpanggil setiap kali elemen dipindahkan pada dokumen
+baru. Kita relatif jarang menggunakan callback ini, namun jika kita memanfaatkan
+tag <iframe> maka callback ini akan terpanggil.
+
+Ketika kita mengimplementasikan constructor pada custom element, kita wajib
+memanggil method super(). Jika tidak, maka akan menghasilkan error:
+
+```javascript
+ReferenceError: Must call super constructor in derived class before accessing '
+this' or returning from derived constructor
+```
+
