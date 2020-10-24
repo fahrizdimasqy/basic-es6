@@ -1881,7 +1881,8 @@ ataupun objek.
 * attributeChangedCallback() : Akan terpanggil setiap kali nilai atribut yang di-
 observe melalui fungsi static get observedAttributes diubah. Callback ini bisa kita
 manfaatkan untuk memuat ulang data yang ditampilkan oleh elemen.
-adoptedCallback() : Akan terpanggil setiap kali elemen dipindahkan pada dokumen
+
+* adoptedCallback() : Akan terpanggil setiap kali elemen dipindahkan pada dokumen
 baru. Kita relatif jarang menggunakan callback ini, namun jika kita memanfaatkan
 tag <iframe> maka callback ini akan terpanggil.
 
