@@ -1893,4 +1893,84 @@ memanggil method super(). Jika tidak, maka akan menghasilkan error:
 ReferenceError: Must call super constructor in derived class before accessing '
 this' or returning from derived constructor
 ```
+Terdapat dua cara membuat instance dari custom element. Yang pertama adalah
+menggunakan nama tagnya langsung yang dituliskan pada kode HTML. Contohnya:
 
+```html
+<body>
+<image-figure></image-figure>
+</body>
+```
+
+Lalu cara kedua adalah dengan menggunakan sintaks JavaScript. Sama seperti
+membuat element HTML biasa, kita gunakan
+method document.createElement dalam membuat elemen baru.
+
+```javascript
+const imageFigureElement = document.createElement("image-figure");
+document.body.appendChild(imageFigureElement
+```
+* index.html
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Element life cycle</title>
+</head> 
+<body>
+<image-figure></image-figure>
+<script src="my-custom-element.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
+```
+
+* image-figure.js
+```javascript
+class ImageFigure extends HTMLElement {
+constructor() {
+super();
+console.log("constructed!")
+}
+connectedCallback() {
+console.log("connected!");
+}
+disconnectedCallback() {
+console.log("disconnected!");
+}
+adoptedCallback() {
+console.log("adopted!");
+}
+attributeChangedCallback(name, oldValue, newValue) {
+console.log(`Attribute: ${name} changed!`);
+}
+static get observedAttributes() {
+return ["caption"];
+}
+}
+customElements.define("image-figure", ImageFigure);
+```
+
+* main.js
+```javascript
+let imageFigureElement = document.querySelector("image-figure");
+if (!imageFigureElement) {
+imageFigureElement = document.createElement("image-figure");
+document.body.appendChild(imageFigureElement);
+}
+setTimeout(() => {
+imageFigureElement.setAttribute("caption", "Gambar 1");
+}, 1000);
+setTimeout(() => {
+imageFigureElement.remove();
+ }, 3000);
+```
+Implementasi lifecycle callback pada custom element bersifat opsional. Kita
+tidak perlu menuliskannya jika memang tidak diperlukan.
+
+Implementasi lifecycle callback pada custom element bersifat opsional. Kita tidak
+perlu menuliskannya jika memang tidak diperlukan.
+
+### Custom element attribute and method ###
