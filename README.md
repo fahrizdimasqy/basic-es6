@@ -1974,3 +1974,66 @@ Implementasi lifecycle callback pada custom element bersifat opsional. Kita tida
 perlu menuliskannya jika memang tidak diperlukan.
 
 ### Custom element attribute and method ###
+
+### Fetch Basic Usage ###
+Seperti yang sudah kita ketahui, fetch memanfaatkan promise dalam melakukan
+tugasnya, sehingga network request yang dibuat menggunakan fetch akan selalu
+berjalan asynchronous.
+
+Network request dilakukan pada saat fungsi fetch() tereksekusi.
+```javascript
+fetch('http://example.com/movies.json')
+  .then(response => response.json())
+  .then(data => console.log(data));
+  catch (error => {
+    console.log(error)});
+ ```
+```javascipt
+fetch("https://web-server-book-dicoding.appspot.com/list")
+```
+Jika request berhasil diproses oleh server, fungsi fetch() akan
+mengembalikan promise resolve dan membawa response object di dalamnya.
+Namun nilai response yang dibawa resolve belum sebagai data JSON yang kita
+butuhkan, melainkan informasi mengenai response itu sendiri, seperti status
+code, target url, headers, dsb. Maka dari itu, untuk mendapatkan data JSON yang
+dibutuhkan, kita perlu mengubah response object ke dalam bentuk JSON dengan
+memanggil method .json().
+
+```javascript
+fetch('http://example.com/movies.json')
+  .then(response => response.json())
+```
+Method .json() juga mengembalikan nilai Promise, sehingga kita
+membutuhkan chaining promisedengan menambahkan .then() untuk mendapatkan
+data JSON yang sesungguhnya.
+
+```javascript
+fetch('http://example.com/movies.json')
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+Lalu jangan lupa juga untuk menambahkan block catch() pada akhir chaining
+promise untuk menangani apabila rejected promise terjadi baik karena
+fungsi fetch() atau json().
+
+```javascript
+fetch('http://example.com/movies.json')
+  .then(response => response.json())
+  .then(data => console.log(data));
+  catch (error => {
+    console.log(error)});
+```
+
+* fetch Asycn/await
+```javascript
+async function getBooks() {
+try {
+    const response = await fetch("https://web-server-book-dicoding.appspot.com/list");
+    const responseJson = await response.json();
+    console.log(responseJson);
+} catch (error) {
+console.log(error);
+    }
+}
+getBooks();
+```
