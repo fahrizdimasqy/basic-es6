@@ -1974,7 +1974,49 @@ Implementasi lifecycle callback pada custom element bersifat opsional. Kita tida
 perlu menuliskannya jika memang tidak diperlukan.
 
 ### Custom element attribute and method ###
+Selain memiliki siklus hidup, class yang mewarisi sifat HTMLElement juga memiliki
+properti dan method yang sama seperti objek DOM. Di mana ia memiliki properti dan
+method seperti innerHTML, innerText, appendChild(), remove(), dan sebagainya.
+Melalui properti dan method ini kita dapat menetapkan apa yang harus ditampilkan
+atau mendapatkan nilai atribut pada custom element. Contohnya seperti ini:
+```
+ class ImageFigure extends HTMLElement {
+ connectedCallback() {
+ this.src = this.getAttribute("src") || null;
+ this.alt = this.getAttribute("alt") || null;
+ this.caption = this.getAttribute("caption") || null;
+    this.innerHTML = `
+    <figure>
+     <img src="${this.src}"
+     alt="${this.alt}">
+     <figcaption>${this.caption}</figcaption>
+     </figure>
+     `;
+   }
+ }
 
+customElements.define("image-figure", ImageFigure);
+```
+Dari kode di atas ketika element <image-figure> tampak pada DOM, maka ia akan
+mendapatkan nilai yang ditetapkan pada atribut src, alt, dan caption. Kemudian
+nilai atribut tersebut akan ditampilkan dalam format elemen <figure> dengan
+memanfaatkan innerHTML.
+Untuk memberikan atribut dan nilainya pada custom element, tidak ada bedanya
+dengan element HTML biasa. Kita bisa melakukannya langsung pada elemennya,
+atau melalui JavaScript.
+```
+<image-figure
+src="https://i.imgur.com/iJq78XH.jpg"
+alt="Dicoding Logo"
+caption="Huruf g dalam logo Dicoding">
+</image-figure>
+```
+```
+const imageFigureElement = document.createElement("image-figure");
+imageFigureElement.setAttribute("src", "https://i.imgur.com/iJq78XH.jpg");
+imageFigureElement.setAttribute("alt", "Dicoding Logo");
+imageFigureElement.setAttribute("caption", "Huruf g dalam logo Dicoding");
+```
 ### Fetch Basic Usage ###
 Seperti yang sudah kita ketahui, fetch memanfaatkan promise dalam melakukan
 tugasnya, sehingga network request yang dibuat menggunakan fetch akan selalu
